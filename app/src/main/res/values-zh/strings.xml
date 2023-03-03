@@ -54,4 +54,8 @@
     <string name="dialog_confirm">确认</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_loading">仍在加载</string>
+
+
+    <string name="settings_language_eng">英文模式</string>
+    <string name="settings_language_cn">中文模式</string>
 </resources>

@@ -1,20 +1,26 @@
 package dev.sora.protohax.ui.components
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.view.View
+import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.material.BackdropValue
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,8 +32,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import com.google.android.material.snackbar.Snackbar
 import dev.sora.protohax.R
 import dev.sora.protohax.relay.AccountManager
+import dev.sora.protohax.relay.gui.ModuleHelper
 import dev.sora.protohax.ui.activities.AppPickerActivity
 import dev.sora.protohax.ui.navigation.PHaxTopLevelDestination
 import dev.sora.protohax.ui.navigation.TOP_LEVEL_DESTINATIONS
@@ -44,7 +52,8 @@ fun CardLoginAlert(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(18.dp, 10.dp).clickable {
-                    navigateToTopLevelDestination(TOP_LEVEL_DESTINATIONS.find { it.iconTextId == R.string.tab_accounts } ?: return@clickable)
+                    navigateToTopLevelDestination(TOP_LEVEL_DESTINATIONS.find { it.iconTextId == R.string.tab_accounts }
+                        ?: return@clickable)
                 },
         ) {
             Row(
@@ -61,6 +70,61 @@ fun CardLoginAlert(
         }
     }
 }
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@Composable
+fun CardSettingsEng(
+) {
+    val ctx = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+      Card(
+          modifier = Modifier
+              .fillMaxWidth()
+              .padding(18.dp, 10.dp)
+              .clickable {
+                  ModuleHelper.Chinese = false
+                  Toast.makeText(ctx, R.string.settings_language_eng, Toast.LENGTH_SHORT).show();
+              },
+      ) {
+          Column(
+              modifier = Modifier.padding(15.dp)
+          ) {
+              Text(
+                  stringResource(R.string.settings_language_eng),
+                  color = MaterialTheme.colorScheme.onBackground
+              )
+          }
+      }
+  }
+
+
+@Composable
+fun CardSettingsCN(
+) {
+    val ctx = LocalContext.current
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(18.dp, 10.dp)
+            .clickable {
+                ModuleHelper.Chinese=true
+                Toast.makeText(ctx, R.string.settings_language_cn, Toast.LENGTH_SHORT).show();
+            },
+    ) {
+        Column(
+            modifier = Modifier.padding(15.dp)
+        ) {
+            Text(
+                stringResource(R.string.settings_language_cn),
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
+    }
+}
+
+
 
 @Composable
 fun CardCurrentApplication(
@@ -113,7 +177,10 @@ fun CardCurrentApplication(
                 }
                 Spacer(modifier = Modifier.size(0.dp, 6.dp))
                 Text(
-                    stringResource(R.string.dashboard_current_version, ctx.packageManager.getPackageInfo(applicationSelected.value).versionName),
+                    stringResource(
+                        R.string.dashboard_current_version,
+                        ctx.packageManager.getPackageInfo(applicationSelected.value).versionName
+                    ),
                     fontSize = lineHeight,
                     color = MaterialTheme.colorScheme.onBackground
                 )

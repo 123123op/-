@@ -18,7 +18,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 
-class ModuleESP : CheatModule("ESP") {
+class ModuleESP : CheatModule("ESP","实体边框") {
 
     private val fovValue = intValue("Fov", 110, 40, 110)
     private val allObjectsValue = boolValue("AllObjects", false)

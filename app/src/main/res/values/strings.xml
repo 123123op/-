@@ -56,4 +56,8 @@
     <string name="dialog_confirm">Confirm</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_loading">Loading</string>
+
+
+    <string name="settings_language_eng">Engish Mode</string>
+    <string name="settings_language_cn">Chinese Mode</string>
 </resources>

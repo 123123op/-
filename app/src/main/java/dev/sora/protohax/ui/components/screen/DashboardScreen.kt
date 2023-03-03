@@ -30,10 +30,7 @@ import dev.sora.protohax.R
 import dev.sora.protohax.relay.service.AppService
 import dev.sora.protohax.ui.activities.AppPickerActivity
 import dev.sora.protohax.ui.activities.MainActivity
-import dev.sora.protohax.ui.components.CardCurrentApplication
-import dev.sora.protohax.ui.components.CardLoginAlert
-import dev.sora.protohax.ui.components.HyperlinkText
-import dev.sora.protohax.ui.components.PHaxAppBar
+import dev.sora.protohax.ui.components.*
 import dev.sora.protohax.ui.navigation.PHaxTopLevelDestination
 import dev.sora.protohax.util.ContextUtils.isAppExists
 import dev.sora.protohax.util.ContextUtils.toast
@@ -66,6 +63,8 @@ fun DashboardScreen(
     MenuDashboard(menuCreate, dialogAbout)
     DialogAbout(dialogAbout)
 
+
+
     PHaxAppBar(
         title = stringResource(id = R.string.app_name),
         navigationType = navigationType,
@@ -81,11 +80,14 @@ fun DashboardScreen(
         Column(modifier = Modifier.padding(it)) {
             CardLoginAlert(navigateToTopLevelDestination)
             CardCurrentApplication(applicationSelected, pickAppActivityLauncher)
+            CardSettingsEng()
+            CardSettingsCN()
         }
     }
 
     BottomFloatingActionButton(connectionState, applicationSelected, pickAppActivityLauncher)
 }
+
 
 @Composable
 private fun BottomFloatingActionButton(
@@ -208,6 +210,7 @@ private fun MenuDashboard(state: MutableState<Boolean>, aboutState: MutableState
                 text = { Text(stringResource(R.string.dashboard_about)) },
                 onClick = { aboutState.value = true }
             )
+
         }
     }
 }
@@ -249,4 +252,5 @@ private fun DialogAbout(state: MutableState<Boolean>) {
             confirmButton = {}
         )
     }
+
 }

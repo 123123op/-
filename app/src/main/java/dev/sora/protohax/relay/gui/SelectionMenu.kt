@@ -22,7 +22,7 @@ import java.math.RoundingMode
 
 
 class SelectionMenu(private val window: PopupWindow) {
-
+    lateinit var m: CheatModule
     private var currentConfig: String = Gpw.generate(7)
     /**
      * a list liked layout who contains the features of selected menus
@@ -87,6 +87,7 @@ class SelectionMenu(private val window: PopupWindow) {
     }
 
     private fun addTabsMenu(ctx: Context, menuTabs: LinearLayout, advisedWidth: Int) {
+
         ctx.themedButton(backgroundColor = BACKGROUND_COLOR_PRIMARY).apply {
             text = ctx.getString(R.string.clickgui_modules)
             width = advisedWidth / 2
@@ -97,7 +98,8 @@ class SelectionMenu(private val window: PopupWindow) {
                         this.setTextColor(if (m.canToggle) if (m.state) TOGGLE_ON_COLOR_RGB else TOGGLE_OFF_COLOR_RGB else TEXT_COLOR)
                     }
                     it.addView(ctx.themedButton().apply {
-                        text = m.name
+
+                        text = if (ModuleHelper.getChinese()) m.cn else m.name
                         width = advisedWidth
                         updateColor()
                         setOnClickListener {
