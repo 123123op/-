@@ -22,7 +22,6 @@ import dev.sora.relay.game.GameSession
 class PopupWindow(private val ctx: Context) : ServiceListener {
     private var layoutView: View? = null
     private var renderLayerView: View? = null
-    lateinit var m: CheatModule
     private var menuLayout: View? = null
     private val menu = SelectionMenu(this)
     private val shortcuts = mutableMapOf<CheatModule, View>()
@@ -201,7 +200,7 @@ class PopupWindow(private val ctx: Context) : ServiceListener {
         }
         val text = TextView(ctx).apply {
             gravity = Gravity.CENTER or Gravity.CENTER
-          text= if (ModuleHelper.getChinese()) m.cn else m.name
+            text=  if (ModuleHelper.getChinese()) module.cn else module.name
             textSize = 14f
             updateTextColor()
 
